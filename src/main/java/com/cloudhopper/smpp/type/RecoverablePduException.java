@@ -21,6 +21,8 @@ package com.cloudhopper.smpp.type;
  */
 
 import com.cloudhopper.smpp.pdu.Pdu;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Thrown when a recoverable PDU decoding error occurs.  A recoverable PDU
@@ -34,6 +36,7 @@ import com.cloudhopper.smpp.pdu.Pdu;
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter @Setter
 public class RecoverablePduException extends Exception {
     static final long serialVersionUID = 1L;
     
@@ -55,13 +58,5 @@ public class RecoverablePduException extends Exception {
     public RecoverablePduException(Pdu partialPdu, String msg, Throwable t) {
         super(msg, t);
         this.partialPdu = partialPdu;
-    }
-
-    public void setPartialPdu(Pdu pdu) {
-        this.partialPdu = pdu;
-    }
-
-    public Pdu getPartialPdu() {
-        return this.partialPdu;
     }
 }

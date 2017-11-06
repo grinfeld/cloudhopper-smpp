@@ -21,12 +21,14 @@ package com.cloudhopper.smpp.type;
  */
 
 import com.cloudhopper.commons.util.HexUtil;
+import lombok.Getter;
 
 /**
  * Thrown for exceptions while processing an SMPP request.
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter
 public class SmppProcessingException extends Exception {
     static final long serialVersionUID = 1L;
 
@@ -39,9 +41,5 @@ public class SmppProcessingException extends Exception {
     public SmppProcessingException(int errorCode, String msg) {
         super("SMPP processing error [0x" + HexUtil.toHexString(errorCode) + "]" + (msg == null ? "" : " message [" + msg + "]"));
         this.errorCode = errorCode;
-    }
-
-    public int getErrorCode() {
-        return this.errorCode;
     }
 }

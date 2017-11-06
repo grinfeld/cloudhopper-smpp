@@ -21,12 +21,15 @@ package com.cloudhopper.smpp.type;
  */
 
 import com.cloudhopper.smpp.SmppConstants;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Configuration to create a TCP/IP connection (Channel) for an SmppSession.
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter @Setter
 public class SmppConnectionConfiguration {
 
     private String host;
@@ -42,29 +45,4 @@ public class SmppConnectionConfiguration {
         this.port = port;
         this.connectTimeout = connectTimeout;
     }
-
-    public void setHost(String value) {
-        this.host = value;
-    }
-
-    public String getHost() {
-        return this.host;
-    }
-
-    public void setPort(int value) {
-        this.port = value;
-    }
-
-    public int getPort() {
-        return this.port;
-    }
-
-    public void setConnectTimeout(long value) {
-        this.connectTimeout = value;
-    }
-
-    public long getConnectTimeout() {
-        return this.connectTimeout;
-    }
-
 }

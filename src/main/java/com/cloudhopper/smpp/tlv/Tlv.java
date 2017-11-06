@@ -22,6 +22,9 @@ package com.cloudhopper.smpp.tlv;
 
 import com.cloudhopper.commons.util.ByteArrayUtil;
 import com.cloudhopper.commons.util.HexUtil;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
@@ -30,11 +33,12 @@ import java.util.Arrays;
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter
 public class Tlv {
-    
+
     private final short tag;
     private final byte[] value;     // length is stored in array
-    private String tagName;      // short description of this tag
+    @Setter private String tagName;      // short description of this tag
 
     public Tlv(short tag, byte[] value) {
         this(tag, value, null);
@@ -52,18 +56,6 @@ public class Tlv {
         this.tagName = tagName;
     }
 
-    public String getTagName() {
-        return this.tagName;
-    }
-
-    public void setTagName(String value) {
-        this.tagName = value;
-    }
-
-    public short getTag() {
-        return this.tag;
-    }
-
     /**
      * Gets an "unsigned" version of this TLV's length of its value.  A TLV
      * has a 16-bit integer that is encoded as a short.  Since Java only has
@@ -77,10 +69,6 @@ public class Tlv {
 
     public short getLength() {
         return (short)getUnsignedLength();
-    }
-
-    public byte[] getValue() {
-        return this.value;
     }
 
     /**

@@ -25,12 +25,16 @@ import com.cloudhopper.commons.util.StringUtil;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Simple representation of an Address in SMPP.
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter
+@Setter
 public class Address {
 
     private byte ton;
@@ -45,30 +49,6 @@ public class Address {
         this.ton = ton;
         this.npi = npi;
         this.address = address;
-    }
-
-    public byte getTon() {
-        return this.ton;
-    }
-
-    public void setTon(byte value) {
-        this.ton = value;
-    }
-
-    public byte getNpi() {
-        return this.npi;
-    }
-
-    public void setNpi(byte value) {
-        this.npi = value;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(String value) {
-        this.address = value;
     }
 
     public int calculateByteSize() {

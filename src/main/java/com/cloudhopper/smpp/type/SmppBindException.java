@@ -22,6 +22,7 @@ package com.cloudhopper.smpp.type;
 
 import com.cloudhopper.commons.util.HexUtil;
 import com.cloudhopper.smpp.pdu.BaseBindResp;
+import lombok.Getter;
 
 /**
  * Thrown only when a "bind" attempt fails and a BaseBindResp was returned.
@@ -38,15 +39,11 @@ import com.cloudhopper.smpp.pdu.BaseBindResp;
 public class SmppBindException extends UnrecoverablePduException {
     static final long serialVersionUID = 1L;
 
-    private final BaseBindResp bindResponse;
+    @Getter private final BaseBindResp bindResponse;
     
     public SmppBindException(BaseBindResp bindResponse) {
         super(buildErrorMessage(bindResponse));
         this.bindResponse = bindResponse;
-    }
-
-    public BaseBindResp getBindResponse() {
-        return this.bindResponse;
     }
 
     static public String buildErrorMessage(BaseBindResp bindResponse) {

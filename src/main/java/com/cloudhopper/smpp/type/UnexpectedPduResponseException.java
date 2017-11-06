@@ -22,11 +22,13 @@ package com.cloudhopper.smpp.type;
 
 import com.cloudhopper.commons.util.HexUtil;
 import com.cloudhopper.smpp.pdu.PduResponse;
+import lombok.Getter;
 
 /**
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter
 public class UnexpectedPduResponseException extends UnrecoverablePduException {
     static final long serialVersionUID = 1L;
 
@@ -35,10 +37,6 @@ public class UnexpectedPduResponseException extends UnrecoverablePduException {
     public UnexpectedPduResponseException(PduResponse responsePdu) {
         super(buildErrorMessage(responsePdu));
         this.responsePdu = responsePdu;
-    }
-
-    public PduResponse getResponsePdu() {
-        return this.responsePdu;
     }
 
     static public String buildErrorMessage(PduResponse responsePdu) {
