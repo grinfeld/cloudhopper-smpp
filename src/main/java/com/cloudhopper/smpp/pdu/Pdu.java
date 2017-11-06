@@ -26,17 +26,21 @@ import com.cloudhopper.smpp.tlv.Tlv;
 import com.cloudhopper.smpp.transcoder.PduTranscoderContext;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import io.netty.buffer.ByteBuf;
 import com.cloudhopper.smpp.type.RecoverablePduException;
 import com.cloudhopper.smpp.type.UnrecoverablePduException;
+import lombok.Getter;
+import lombok.Setter;
 
 public abstract class Pdu {
-    
-    private final String name;
-    private final boolean isRequest;
+
+    @Getter private final String name;
+    @Getter private final boolean isRequest;
     private Integer commandLength;          // we'll know the size not calculated yet if null
-    private final int commandId;
-    private int commandStatus;
+    @Getter private final int commandId;
+    @Getter @Setter private int commandStatus;
     private Integer sequenceNumber;         // we'll know its not assigned yet if null
     // optional parameters (there aren't many, no need for a map)
     private ArrayList<Tlv> optionalParameters;
@@ -60,14 +64,6 @@ public abstract class Pdu {
         return this.referenceObject;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public boolean isRequest() {
-        return this.isRequest;
-    }
-
     public boolean isResponse() {
         return !this.isRequest;
     }
@@ -81,15 +77,11 @@ public abstract class Pdu {
     }
 
     public void setCommandLength(int value) {
-        this.commandLength = new Integer(value);
+        this.commandLength = value;
     }
 
     public int getCommandLength() {
-        if (this.commandLength == null) {
-            return 0;
-        } else {
-            return this.commandLength.intValue();
-        }
+        return Optional.ofNullable(this.commandLength).orElse(0);
     }
 
     /**
@@ -103,18 +95,6 @@ public abstract class Pdu {
         return len;
     }
 
-    public int getCommandId() {
-        return this.commandId;
-    }
-
-    public void setCommandStatus(int value) {
-        this.commandStatus = value;
-    }
-
-    public int getCommandStatus() {
-        return this.commandStatus;
-    }
-
     public boolean hasSequenceNumberAssigned() {
         return (this.sequenceNumber != null);
     }
@@ -124,22 +104,15 @@ public abstract class Pdu {
     }
 
     public void setSequenceNumber(int value) {
-        this.sequenceNumber = new Integer(value);
+        this.sequenceNumber = value;
     }
 
     public int getSequenceNumber() {
-        if (this.sequenceNumber == null) {
-            return 0;
-        } else {
-            return this.sequenceNumber.intValue();
-        }
+        return Optional.ofNullable(this.sequenceNumber).orElse(0);
     }
 
     public int getOptionalParameterCount() {
-        if (this.optionalParameters == null) {
-            return 0;
-        }
-        return this.optionalParameters.size();
+        return Optional.ofNullable(this.optionalParameters).map(ArrayList::size).orElse(0);
     }
 
     /**

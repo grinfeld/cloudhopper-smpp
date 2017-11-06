@@ -28,12 +28,16 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * SMPP query_sm implementation.
  *
  * @author chris.matthews <idpromnut@gmail.com>
  */
+@Getter
+@Setter
 public class QuerySm extends PduRequest<QuerySmResp> {
 
     private String messageId;
@@ -42,23 +46,6 @@ public class QuerySm extends PduRequest<QuerySmResp> {
     public QuerySm() {
         super(SmppConstants.CMD_ID_QUERY_SM, "query_sm");
     }
-
-    public String getMessageId() {
-        return this.messageId;
-    }
-
-    public void setMessageId(String value) {
-        this.messageId = value;
-    }
-
-    public Address getSourceAddress() {
-        return this.sourceAddress;
-    }
-
-    public void setSourceAddress(Address value) {
-        this.sourceAddress = value;
-    }
-
 
     @Override
     public void readBody(ByteBuf buffer) throws UnrecoverablePduException, RecoverablePduException {

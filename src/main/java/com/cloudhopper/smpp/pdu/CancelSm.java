@@ -28,12 +28,16 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * SMPP cancel_sm implementation.
  *
  * @author chris.matthews <idpromnut@gmail.com>
  */
+@Getter
+@Setter
 public class CancelSm extends PduRequest<CancelSmResp> {
 
     protected String serviceType;
@@ -44,39 +48,6 @@ public class CancelSm extends PduRequest<CancelSmResp> {
     public CancelSm() {
         super(SmppConstants.CMD_ID_CANCEL_SM, "cancel_sm");
     }
-
-    public String getServiceType() {
-        return this.serviceType;
-    }
-
-    public void setServiceType(String value) {
-        this.serviceType = value;
-    }
-
-    public String getMessageId() {
-        return this.messageId;
-    }
-
-    public void setMessageId(String value) {
-        this.messageId = value;
-    }
-
-    public Address getSourceAddress() {
-        return this.sourceAddress;
-    }
-
-    public void setSourceAddress(Address value) {
-        this.sourceAddress = value;
-    }
-
-    public Address getDestAddress() {
-        return this.destAddress;
-    }
-
-    public void setDestAddress(Address value) {
-        this.destAddress = value;
-    }
-
 
     @Override
     public void readBody(ByteBuf buffer) throws UnrecoverablePduException, RecoverablePduException {

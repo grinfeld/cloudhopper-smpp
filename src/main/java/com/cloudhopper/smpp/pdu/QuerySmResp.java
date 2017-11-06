@@ -28,12 +28,16 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * SMPP query_sm_resp implementation.
  *
  * @author chris.matthews <idpromnut@gmail.com>
  */
+@Getter
+@Setter
 public class QuerySmResp extends PduResponse {
 
     private String messageId;
@@ -43,38 +47,6 @@ public class QuerySmResp extends PduResponse {
 
     public QuerySmResp() {
         super(SmppConstants.CMD_ID_QUERY_SM_RESP, "query_sm_resp");
-    }
-
-    public String getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(final String iMessageId) {
-        messageId = iMessageId;
-    }
-
-    public String getFinalDate() {
-        return finalDate;
-    }
-
-    public void setFinalDate(final String iFinalDate) {
-        finalDate = iFinalDate;
-    }
-
-    public byte getMessageState() {
-        return messageState;
-    }
-
-    public void setMessageState(final byte iMessageState) {
-        messageState = iMessageState;
-    }
-
-    public byte getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(final byte iErrorCode) {
-        errorCode = iErrorCode;
     }
 
     @Override

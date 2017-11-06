@@ -1,5 +1,8 @@
 package com.cloudhopper.smpp.pdu;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /*
  * #%L
  * ch-smpp
@@ -19,7 +22,8 @@ package com.cloudhopper.smpp.pdu;
  * limitations under the License.
  * #L%
  */
-
+@Getter
+@Setter
 public abstract class PduResponse extends Pdu {
 
     private String resultMessage;
@@ -27,13 +31,4 @@ public abstract class PduResponse extends Pdu {
     public PduResponse(int commandId, String name) {
         super(commandId, name, false);
     }
-
-    public void setResultMessage(String value) {
-        this.resultMessage = value;
-    }
-
-    public String getResultMessage() {
-        return this.resultMessage;
-    }
-    
 }

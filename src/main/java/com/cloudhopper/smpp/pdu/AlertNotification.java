@@ -28,7 +28,11 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class AlertNotification extends Pdu {
 
     protected Address sourceAddress;
@@ -36,22 +40,6 @@ public class AlertNotification extends Pdu {
 
     public AlertNotification(){
         super( SmppConstants.CMD_ID_ALERT_NOTIFICATION, "alert_notification", true );
-    }
-
-    public Address getSourceAddress() {
-        return this.sourceAddress;
-    }
-
-    public void setSourceAddress(Address value) {
-        this.sourceAddress = value;
-    }
-
-    public Address getEsmeAddress() {
-        return this.esmeAddress;
-    }
-
-    public void setEsmeAddress(Address value) {
-        this.esmeAddress = value;
     }
 
     @Override

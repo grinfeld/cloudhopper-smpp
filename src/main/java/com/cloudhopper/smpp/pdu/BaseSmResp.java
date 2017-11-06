@@ -26,25 +26,21 @@ import com.cloudhopper.smpp.type.RecoverablePduException;
 import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>)
  */
+@Getter
+@Setter
 public abstract class BaseSmResp extends PduResponse {
 
     private String messageId;
 
     public BaseSmResp(int commandId, String name) {
         super(commandId, name);
-    }
-
-    public String getMessageId() {
-        return this.messageId;
-    }
-
-    public void setMessageId(String value) {
-        this.messageId = value;
     }
 
     @Override

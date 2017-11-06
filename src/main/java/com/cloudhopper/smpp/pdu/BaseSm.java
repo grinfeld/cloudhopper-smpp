@@ -29,6 +29,10 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Optional;
 
 /**
  * Base "short message" PDU as a super class for submit_sm, deliver_sm, and
@@ -38,32 +42,29 @@ import io.netty.buffer.ByteBuf;
  * 
  * @author joelauer (twitter: @jjlauer or <a href="http://twitter.com/jjlauer" target=window>http://twitter.com/jjlauer</a>) 
  */
+@Getter
 public abstract class BaseSm<R extends PduResponse> extends PduRequest<R> {
 
-    protected String serviceType;
-    protected Address sourceAddress;
-    protected Address destAddress;
-    protected byte esmClass;
-    private byte protocolId;                    // not present in data_sm
-    private byte priority;                      // not present in data_sm
-    private String scheduleDeliveryTime;        // not present in data_sm
-    private String validityPeriod;              // not present in data_sm
-    protected byte registeredDelivery;
-    private byte replaceIfPresent;              // not present in data_sm
-    protected byte dataCoding;
-    private byte defaultMsgId;                  // not present in data_sm, not used in deliver_sm
-    private byte[] shortMessage;                // not present in data_sm         
+    @Setter protected String serviceType;
+    @Setter protected Address sourceAddress;
+    @Setter protected Address destAddress;
+    @Setter protected byte esmClass;
+    @Setter private byte protocolId;                    // not present in data_sm
+    @Setter private byte priority;                      // not present in data_sm
+    @Setter private String scheduleDeliveryTime;        // not present in data_sm
+    @Setter private String validityPeriod;              // not present in data_sm
+    @Setter protected byte registeredDelivery;
+    @Setter private byte replaceIfPresent;              // not present in data_sm
+    @Setter protected byte dataCoding;
+    @Setter private byte defaultMsgId;                  // not present in data_sm, not used in deliver_sm
+            private byte[] shortMessage;                // not present in data_sm
 
     public BaseSm(int commandId, String name) {
         super(commandId, name);
     }
 
     public int getShortMessageLength() {
-        return (this.shortMessage == null ? 0 : this.shortMessage.length);
-    }
-
-    public byte[] getShortMessage() {
-        return this.shortMessage;
+        return Optional.ofNullable(shortMessage).map(s -> s.length).orElse(0);
     }
 
     public void setShortMessage(byte[] value) throws SmppInvalidArgumentException {
@@ -71,102 +72,6 @@ public abstract class BaseSm<R extends PduResponse> extends PduRequest<R> {
             throw new SmppInvalidArgumentException("A short message in a PDU can only be a max of 255 bytes [actual=" + value.length + "]; use optional parameter message_payload as an alternative");
         }
         this.shortMessage = value;
-    }
-
-    public byte getReplaceIfPresent() {
-        return this.replaceIfPresent;
-    }
-
-    public void setReplaceIfPresent(byte value) {
-        this.replaceIfPresent = value;
-    }
-
-    public byte getDataCoding() {
-        return this.dataCoding;
-    }
-
-    public void setDataCoding(byte value) {
-        this.dataCoding = value;
-    }
-
-    public byte getDefaultMsgId() {
-        return this.defaultMsgId;
-    }
-
-    public void setDefaultMsgId(byte value) {
-        this.defaultMsgId = value;
-    }
-
-    public byte getRegisteredDelivery() {
-        return this.registeredDelivery;
-    }
-
-    public void setRegisteredDelivery(byte value) {
-        this.registeredDelivery = value;
-    }
-
-    public String getValidityPeriod() {
-        return this.validityPeriod;
-    }
-
-    public void setValidityPeriod(String value) {
-        this.validityPeriod = value;
-    }
-
-    public String getScheduleDeliveryTime() {
-        return this.scheduleDeliveryTime;
-    }
-
-    public void setScheduleDeliveryTime(String value) {
-        this.scheduleDeliveryTime = value;
-    }
-
-    public byte getPriority() {
-        return this.priority;
-    }
-
-    public void setPriority(byte value) {
-        this.priority = value;
-    }
-
-    public byte getEsmClass() {
-        return this.esmClass;
-    }
-
-    public void setEsmClass(byte value) {
-        this.esmClass = value;
-    }
-
-    public byte getProtocolId() {
-        return this.protocolId;
-    }
-
-    public void setProtocolId(byte value) {
-        this.protocolId = value;
-    }
-
-    public String getServiceType() {
-        return this.serviceType;
-    }
-
-    public void setServiceType(String value) {
-        this.serviceType = value;
-    }
-
-    public Address getSourceAddress() {
-        return this.sourceAddress;
-    }
-
-    public void setSourceAddress(Address value) {
-        this.sourceAddress = value;
-    }
-
-    public Address getDestAddress() {
-        return this.destAddress;
-    }
-
-    public void setDestAddress(Address value) {
-        this.destAddress = value;
     }
 
     @Override

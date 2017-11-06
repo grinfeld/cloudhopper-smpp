@@ -30,16 +30,21 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException;
 import com.cloudhopper.smpp.util.ByteBufUtil;
 import com.cloudhopper.smpp.util.PduUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Optional;
+
+@Getter
 public class ReplaceSm extends PduRequest<ReplaceSmResp> {
 
-    private String messageId;
-    private Address sourceAddress;
-    private String scheduleDeliveryTime;
-    private String validityPeriod;
-    private byte registeredDelivery;
-    private byte defaultMsgId;
-    private byte[] shortMessage; 
+    @Setter private String messageId;
+    @Setter private Address sourceAddress;
+    @Setter private String scheduleDeliveryTime;
+    @Setter private String validityPeriod;
+    @Setter private byte registeredDelivery;
+    @Setter private byte defaultMsgId;
+            private byte[] shortMessage;
     
     public ReplaceSm() {
         super(SmppConstants.CMD_ID_REPLACE_SM, "replace_sm");
@@ -56,69 +61,16 @@ public class ReplaceSm extends PduRequest<ReplaceSmResp> {
     public Class<ReplaceSmResp> getResponseClass() {
         return ReplaceSmResp.class;
     }
-    
-    
-    public String getMessageId(){
-        return messageId;
-    }
-    
-    public void setMessageId(String messageId){
-        this.messageId = messageId;
-    }
-    
+
     public int getShortMessageLength() {
-        return (this.shortMessage == null ? 0 : this.shortMessage.length);
+        return Optional.ofNullable(shortMessage).map(s -> s.length).orElse(0);
     }
 
-    public byte[] getShortMessage() {
-        return this.shortMessage;
-    }
-
-    public void setShortMessage(byte[] value) throws SmppInvalidArgumentException {
+     public void setShortMessage(byte[] value) throws SmppInvalidArgumentException {
         if (value != null && value.length > 255) {
             throw new SmppInvalidArgumentException("A short message in a PDU can only be a max of 255 bytes [actual=" + value.length + "]; use optional parameter message_payload as an alternative");
         }
         this.shortMessage = value;
-    }
-
-    public byte getDefaultMsgId() {
-        return this.defaultMsgId;
-    }
-
-    public void setDefaultMsgId(byte value) {
-        this.defaultMsgId = value;
-    }
-
-    public byte getRegisteredDelivery() {
-        return this.registeredDelivery;
-    }
-
-    public void setRegisteredDelivery(byte value) {
-        this.registeredDelivery = value;
-    }
-
-    public String getValidityPeriod() {
-        return this.validityPeriod;
-    }
-
-    public void setValidityPeriod(String value) {
-        this.validityPeriod = value;
-    }
-
-    public String getScheduleDeliveryTime() {
-        return this.scheduleDeliveryTime;
-    }
-
-    public void setScheduleDeliveryTime(String value) {
-        this.scheduleDeliveryTime = value;
-    }
-
-    public Address getSourceAddress() {
-        return this.sourceAddress;
-    }
-
-    public void setSourceAddress(Address value) {
-        this.sourceAddress = value;
     }
 
     @Override
